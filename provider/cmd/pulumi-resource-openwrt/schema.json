@@ -1,0 +1,2501 @@
+{
+    "name": "openwrt",
+    "displayName": "OpenWRT",
+    "description": "A Pulumi package for creating and managing OpenWRT resources",
+    "keywords": [
+        "pulumi",
+        "openwrt",
+        "category/network"
+    ],
+    "homepage": "https://github.com/deposition-cloud/pulumi-openwrt",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`openwrt` Terraform Provider](https://github.com/joneshf/terraform-provider-openwrt).",
+    "repository": "https://github.com/deposition-cloud/pulumi-openwrt",
+    "logoUrl": "https://raw.githubusercontent.com/deposition-cloud/pulumi-openwrt/main/docs/openwrt.png",
+    "pluginDownloadURL": "github://api.github.com/deposition-cloud/pulumi-openwrt",
+    "publisher": "deposition-cloud",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "compatibility": "tfbridge20",
+            "rootNamespace": "Pulumiverse"
+        },
+        "go": {
+            "importBasePath": "github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true
+        },
+        "java": {
+            "basePackage": "com.deposition-cloud",
+            "buildFiles": "",
+            "gradleNexusPublishPluginVersion": "",
+            "gradleTest": ""
+        },
+        "nodejs": {
+            "packageName": "@deposition-cloud/pulumi-openwrt",
+            "packageDescription": "A Pulumi package for creating and managing OpenWRT resources",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/joneshf/terraform-provider-openwrt)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-openwrt` repo](https://github.com/deposition-cloud/pulumi-openwrt/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-openwrt` repo](https://github.com/joneshf/terraform-provider-openwrt/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "packageName": "pulumiverse_openwrt",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/joneshf/terraform-provider-openwrt)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-openwrt` repo](https://github.com/deposition-cloud/pulumi-openwrt/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-openwrt` repo](https://github.com/joneshf/terraform-provider-openwrt/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {}
+        }
+    },
+    "config": {
+        "variables": {
+            "hostname": {
+                "type": "string",
+                "description": "The hostname to use. Defaults to \"192.168.1.1\".\n"
+            },
+            "password": {
+                "type": "string",
+                "description": "The password to use. Defaults to \"\".\n",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The port to use. Defaults to 80.\n"
+            },
+            "scheme": {
+                "type": "string",
+                "description": "The URI scheme to use. Defaults to \"http\".\n"
+            },
+            "username": {
+                "type": "string",
+                "description": "The username to use. Defaults to \"root\".\n"
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the openwrt package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "hostname": {
+                "type": "string",
+                "description": "The hostname to use. Defaults to \"192.168.1.1\".\n"
+            },
+            "password": {
+                "type": "string",
+                "description": "The password to use. Defaults to \"\".\n",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The port to use. Defaults to 80.\n"
+            },
+            "scheme": {
+                "type": "string",
+                "description": "The URI scheme to use. Defaults to \"http\".\n"
+            },
+            "username": {
+                "type": "string",
+                "description": "The username to use. Defaults to \"root\".\n"
+            }
+        },
+        "inputProperties": {
+            "hostname": {
+                "type": "string",
+                "description": "The hostname to use. Defaults to \"192.168.1.1\".\n"
+            },
+            "password": {
+                "type": "string",
+                "description": "The password to use. Defaults to \"\".\n",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The port to use. Defaults to 80.\n"
+            },
+            "scheme": {
+                "type": "string",
+                "description": "The URI scheme to use. Defaults to \"http\".\n"
+            },
+            "username": {
+                "type": "string",
+                "description": "The username to use. Defaults to \"root\".\n"
+            }
+        }
+    },
+    "resources": {
+        "openwrt:index/dhcpDhcp:DhcpDhcp": {
+            "description": "Per interface lease pools and settings for serving DHCP requests.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkDevice;\nimport com.pulumi.openwrt.NetworkDeviceArgs;\nimport com.pulumi.openwrt.NetworkInterface;\nimport com.pulumi.openwrt.NetworkInterfaceArgs;\nimport com.pulumi.openwrt.DhcpDhcp;\nimport com.pulumi.openwrt.DhcpDhcpArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var brTesting = new NetworkDevice(\"brTesting\", NetworkDeviceArgs.builder()        \n            .id(\"br_testing\")\n            .ports(            \n                \"eth0\",\n                \"eth1\",\n                \"eth2.20\")\n            .type(\"bridge\")\n            .build());\n\n        var testingNetworkInterface = new NetworkInterface(\"testingNetworkInterface\", NetworkInterfaceArgs.builder()        \n            .device(brTesting.name())\n            .dns(            \n                \"9.9.9.9\",\n                \"1.1.1.1\")\n            .id(\"testing\")\n            .ipaddr(\"192.168.3.1\")\n            .netmask(\"255.255.255.0\")\n            .proto(\"static\")\n            .build());\n\n        var testingDhcpDhcp = new DhcpDhcp(\"testingDhcpDhcp\", DhcpDhcpArgs.builder()        \n            .dhcpv4(\"server\")\n            .dhcpv6(\"server\")\n            .id(\"testing\")\n            .interface_(testingNetworkInterface.id())\n            .leasetime(\"12h\")\n            .limit(150)\n            .raFlags(            \n                \"managed-config\",\n                \"other-config\")\n            .start(100)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  brTesting:\n    type: openwrt:NetworkDevice\n    properties:\n      id: br_testing\n      ports:\n        - eth0\n        - eth1\n        - eth2.20\n      type: bridge\n  testingNetworkInterface:\n    type: openwrt:NetworkInterface\n    properties:\n      device: ${brTesting.name}\n      dns:\n        - 9.9.9.9\n        - 1.1.1.1\n      id: testing\n      ipaddr: 192.168.3.1\n      netmask: 255.255.255.0\n      proto: static\n  testingDhcpDhcp:\n    type: openwrt:DhcpDhcp\n    properties:\n      dhcpv4: server\n      dhcpv6: server\n      id: testing\n      interface: ${testingNetworkInterface.id}\n      leasetime: 12h\n      limit: 150\n      raFlags:\n        - managed-config\n        - other-config\n      start: 100\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"dhcp\", \"dhcp\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({name.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"name\"\"lan\",\n\n },\n\n {\n\n\n\n \"name\"\"guest\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/dhcpDhcp:DhcpDhcp lan lan\n```\n\n ",
+            "properties": {
+                "dhcpv4": {
+                    "type": "string",
+                    "description": "The mode of the DHCPv4 server. Must be one of: \"disabled\", \"server\".\n"
+                },
+                "dhcpv6": {
+                    "type": "string",
+                    "description": "The mode of the DHCPv6 server. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                },
+                "force": {
+                    "type": "boolean",
+                    "description": "Forces DHCP serving on the specified interface even if another DHCP server is detected on the same network segment.\n"
+                },
+                "ignore": {
+                    "type": "boolean",
+                    "description": "Specifies whether dnsmasq should ignore this pool.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface associated with this DHCP address pool. This name is what the interface is known as in UCI, or the `id`\nfield in Terraform. Required if `ignore` is not `true`.\n"
+                },
+                "leasetime": {
+                    "type": "string",
+                    "description": "The lease time of addresses handed out to clients. E.g. `12h`, or `30m`. Required if `ignore` is not `true`.\n"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Specifies the size of the address pool. E.g. With start = 100, and limit = 150, the maximum address will be 249. Required if `ignore` is not `true`.\n"
+                },
+                "ra": {
+                    "type": "string",
+                    "description": "The mode of Router Advertisements. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                },
+                "raFlags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Router Advertisement flags to include in messages. Must be one of: \"home-agent\", \"managed-config\", \"none\", \"other-config\".\n"
+                },
+                "start": {
+                    "type": "integer",
+                    "description": "Specifies the offset from the network address of the underlying interface to calculate the minimum address that may be leased to clients. It may be greater than 255 to span subnets. Required if `ignore` is not `true`.\n"
+                }
+            },
+            "required": [
+                "dhcpv4",
+                "dhcpv6",
+                "force",
+                "ignore",
+                "interface",
+                "leasetime",
+                "limit",
+                "ra",
+                "raFlags",
+                "start"
+            ],
+            "inputProperties": {
+                "dhcpv4": {
+                    "type": "string",
+                    "description": "The mode of the DHCPv4 server. Must be one of: \"disabled\", \"server\".\n"
+                },
+                "dhcpv6": {
+                    "type": "string",
+                    "description": "The mode of the DHCPv6 server. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                },
+                "force": {
+                    "type": "boolean",
+                    "description": "Forces DHCP serving on the specified interface even if another DHCP server is detected on the same network segment.\n"
+                },
+                "ignore": {
+                    "type": "boolean",
+                    "description": "Specifies whether dnsmasq should ignore this pool.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface associated with this DHCP address pool. This name is what the interface is known as in UCI, or the `id`\nfield in Terraform. Required if `ignore` is not `true`.\n"
+                },
+                "leasetime": {
+                    "type": "string",
+                    "description": "The lease time of addresses handed out to clients. E.g. `12h`, or `30m`. Required if `ignore` is not `true`.\n"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Specifies the size of the address pool. E.g. With start = 100, and limit = 150, the maximum address will be 249. Required if `ignore` is not `true`.\n"
+                },
+                "ra": {
+                    "type": "string",
+                    "description": "The mode of Router Advertisements. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                },
+                "raFlags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Router Advertisement flags to include in messages. Must be one of: \"home-agent\", \"managed-config\", \"none\", \"other-config\".\n"
+                },
+                "start": {
+                    "type": "integer",
+                    "description": "Specifies the offset from the network address of the underlying interface to calculate the minimum address that may be leased to clients. It may be greater than 255 to span subnets. Required if `ignore` is not `true`.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DhcpDhcp resources.\n",
+                "properties": {
+                    "dhcpv4": {
+                        "type": "string",
+                        "description": "The mode of the DHCPv4 server. Must be one of: \"disabled\", \"server\".\n"
+                    },
+                    "dhcpv6": {
+                        "type": "string",
+                        "description": "The mode of the DHCPv6 server. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                    },
+                    "force": {
+                        "type": "boolean",
+                        "description": "Forces DHCP serving on the specified interface even if another DHCP server is detected on the same network segment.\n"
+                    },
+                    "ignore": {
+                        "type": "boolean",
+                        "description": "Specifies whether dnsmasq should ignore this pool.\n"
+                    },
+                    "interface": {
+                        "type": "string",
+                        "description": "The interface associated with this DHCP address pool. This name is what the interface is known as in UCI, or the `id`\nfield in Terraform. Required if `ignore` is not `true`.\n"
+                    },
+                    "leasetime": {
+                        "type": "string",
+                        "description": "The lease time of addresses handed out to clients. E.g. `12h`, or `30m`. Required if `ignore` is not `true`.\n"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Specifies the size of the address pool. E.g. With start = 100, and limit = 150, the maximum address will be 249. Required if `ignore` is not `true`.\n"
+                    },
+                    "ra": {
+                        "type": "string",
+                        "description": "The mode of Router Advertisements. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                    },
+                    "raFlags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Router Advertisement flags to include in messages. Must be one of: \"home-agent\", \"managed-config\", \"none\", \"other-config\".\n"
+                    },
+                    "start": {
+                        "type": "integer",
+                        "description": "Specifies the offset from the network address of the underlying interface to calculate the minimum address that may be leased to clients. It may be greater than 255 to span subnets. Required if `ignore` is not `true`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/dhcpDnsmasq:DhcpDnsmasq": {
+            "description": "A lightweight DHCP and caching DNS server.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.DhcpDnsmasq;\nimport com.pulumi.openwrt.DhcpDnsmasqArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var this_ = new DhcpDnsmasq(\"this\", DhcpDnsmasqArgs.builder()        \n            .domain(\"testing\")\n            .expandhosts(true)\n            .id(\"testing\")\n            .local(\"/testing/\")\n            .rebindLocalhost(true)\n            .rebindProtection(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  this:\n    type: openwrt:DhcpDnsmasq\n    properties:\n      domain: testing\n      expandhosts: true\n      id: testing\n      local: /testing/\n      rebindLocalhost: true\n      rebindProtection: true\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"dhcp\", \"dnsmasq\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/dhcpDnsmasq:DhcpDnsmasq this cfg123456\n```\n\n ",
+            "properties": {
+                "authoritative": {
+                    "type": "boolean",
+                    "description": "Force dnsmasq into authoritative mode. This speeds up DHCP leasing. Used if this is the only server on the network.\n"
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "DNS domain handed out to DHCP clients.\n"
+                },
+                "domainneeded": {
+                    "type": "boolean",
+                    "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                },
+                "ednspacketMax": {
+                    "type": "integer",
+                    "description": "Specify the largest EDNS.0 UDP packet which is supported by the DNS forwarder.\n"
+                },
+                "expandhosts": {
+                    "type": "boolean",
+                    "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                },
+                "leasefile": {
+                    "type": "string",
+                    "description": "Store DHCP leases in this file.\n"
+                },
+                "local": {
+                    "type": "string",
+                    "description": "Look up DNS entries for this domain from `/etc/hosts`.\n"
+                },
+                "localiseQueries": {
+                    "type": "boolean",
+                    "description": "Choose IP address to match the incoming interface if multiple addresses are assigned to a host name in `/etc/hosts`.\n"
+                },
+                "localservice": {
+                    "type": "boolean",
+                    "description": "Accept DNS queries only from hosts whose address is on a local subnet.\n"
+                },
+                "readethers": {
+                    "type": "boolean",
+                    "description": "Read static lease entries from `/etc/ethers`, re-read on SIGHUP.\n"
+                },
+                "rebindLocalhost": {
+                    "type": "boolean",
+                    "description": "Allows upstream 127.0.0.0/8 responses, required for DNS based blocklist services. Only takes effect if rebind protection is enabled.\n"
+                },
+                "rebindProtection": {
+                    "type": "boolean",
+                    "description": "Enables DNS rebind attack protection by discarding upstream RFC1918 responses.\n"
+                },
+                "resolvfile": {
+                    "type": "string",
+                    "description": "Specifies an alternative resolv file.\n"
+                }
+            },
+            "required": [
+                "authoritative",
+                "domain",
+                "domainneeded",
+                "ednspacketMax",
+                "expandhosts",
+                "leasefile",
+                "local",
+                "localiseQueries",
+                "localservice",
+                "readethers",
+                "rebindLocalhost",
+                "rebindProtection",
+                "resolvfile"
+            ],
+            "inputProperties": {
+                "authoritative": {
+                    "type": "boolean",
+                    "description": "Force dnsmasq into authoritative mode. This speeds up DHCP leasing. Used if this is the only server on the network.\n"
+                },
+                "domain": {
+                    "type": "string",
+                    "description": "DNS domain handed out to DHCP clients.\n"
+                },
+                "domainneeded": {
+                    "type": "boolean",
+                    "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                },
+                "ednspacketMax": {
+                    "type": "integer",
+                    "description": "Specify the largest EDNS.0 UDP packet which is supported by the DNS forwarder.\n"
+                },
+                "expandhosts": {
+                    "type": "boolean",
+                    "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                },
+                "leasefile": {
+                    "type": "string",
+                    "description": "Store DHCP leases in this file.\n"
+                },
+                "local": {
+                    "type": "string",
+                    "description": "Look up DNS entries for this domain from `/etc/hosts`.\n"
+                },
+                "localiseQueries": {
+                    "type": "boolean",
+                    "description": "Choose IP address to match the incoming interface if multiple addresses are assigned to a host name in `/etc/hosts`.\n"
+                },
+                "localservice": {
+                    "type": "boolean",
+                    "description": "Accept DNS queries only from hosts whose address is on a local subnet.\n"
+                },
+                "readethers": {
+                    "type": "boolean",
+                    "description": "Read static lease entries from `/etc/ethers`, re-read on SIGHUP.\n"
+                },
+                "rebindLocalhost": {
+                    "type": "boolean",
+                    "description": "Allows upstream 127.0.0.0/8 responses, required for DNS based blocklist services. Only takes effect if rebind protection is enabled.\n"
+                },
+                "rebindProtection": {
+                    "type": "boolean",
+                    "description": "Enables DNS rebind attack protection by discarding upstream RFC1918 responses.\n"
+                },
+                "resolvfile": {
+                    "type": "string",
+                    "description": "Specifies an alternative resolv file.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DhcpDnsmasq resources.\n",
+                "properties": {
+                    "authoritative": {
+                        "type": "boolean",
+                        "description": "Force dnsmasq into authoritative mode. This speeds up DHCP leasing. Used if this is the only server on the network.\n"
+                    },
+                    "domain": {
+                        "type": "string",
+                        "description": "DNS domain handed out to DHCP clients.\n"
+                    },
+                    "domainneeded": {
+                        "type": "boolean",
+                        "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                    },
+                    "ednspacketMax": {
+                        "type": "integer",
+                        "description": "Specify the largest EDNS.0 UDP packet which is supported by the DNS forwarder.\n"
+                    },
+                    "expandhosts": {
+                        "type": "boolean",
+                        "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                    },
+                    "leasefile": {
+                        "type": "string",
+                        "description": "Store DHCP leases in this file.\n"
+                    },
+                    "local": {
+                        "type": "string",
+                        "description": "Look up DNS entries for this domain from `/etc/hosts`.\n"
+                    },
+                    "localiseQueries": {
+                        "type": "boolean",
+                        "description": "Choose IP address to match the incoming interface if multiple addresses are assigned to a host name in `/etc/hosts`.\n"
+                    },
+                    "localservice": {
+                        "type": "boolean",
+                        "description": "Accept DNS queries only from hosts whose address is on a local subnet.\n"
+                    },
+                    "readethers": {
+                        "type": "boolean",
+                        "description": "Read static lease entries from `/etc/ethers`, re-read on SIGHUP.\n"
+                    },
+                    "rebindLocalhost": {
+                        "type": "boolean",
+                        "description": "Allows upstream 127.0.0.0/8 responses, required for DNS based blocklist services. Only takes effect if rebind protection is enabled.\n"
+                    },
+                    "rebindProtection": {
+                        "type": "boolean",
+                        "description": "Enables DNS rebind attack protection by discarding upstream RFC1918 responses.\n"
+                    },
+                    "resolvfile": {
+                        "type": "string",
+                        "description": "Specifies an alternative resolv file.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/dhcpDomain:DhcpDomain": {
+            "description": "Binds a domain name to an IP address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.DhcpDomain;\nimport com.pulumi.openwrt.DhcpDomainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testing = new DhcpDomain(\"testing\", DhcpDomainArgs.builder()        \n            .id(\"testing\")\n            .ip(\"192.168.1.50\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  testing:\n    type: openwrt:DhcpDomain\n    properties:\n      id: testing\n      ip: 192.168.1.50\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"dhcp\", \"domain\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/dhcpDomain:DhcpDomain this cfg123456\n```\n\n ",
+            "properties": {
+                "ip": {
+                    "type": "string",
+                    "description": "The IP address to be used for this domain.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Hostname to assign.\n"
+                }
+            },
+            "required": [
+                "ip",
+                "name"
+            ],
+            "inputProperties": {
+                "ip": {
+                    "type": "string",
+                    "description": "The IP address to be used for this domain.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Hostname to assign.\n"
+                }
+            },
+            "requiredInputs": [
+                "ip"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DhcpDomain resources.\n",
+                "properties": {
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address to be used for this domain.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Hostname to assign.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/dhcpHost:DhcpHost": {
+            "description": "Assign a fixed IP address to hosts.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.DhcpHost;\nimport com.pulumi.openwrt.DhcpHostArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testing = new DhcpHost(\"testing\", DhcpHostArgs.builder()        \n            .id(\"testing\")\n            .ip(\"192.168.1.50\")\n            .mac(\"12:34:56:78:90:ab\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  testing:\n    type: openwrt:DhcpHost\n    properties:\n      id: testing\n      ip: 192.168.1.50\n      mac: 12:34:56:78:90:ab\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"dhcp\", \"host\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/dhcpHost:DhcpHost this cfg123456\n```\n\n ",
+            "properties": {
+                "dns": {
+                    "type": "boolean",
+                    "description": "Add static forward and reverse DNS entries for this host.\n"
+                },
+                "ip": {
+                    "type": "string",
+                    "description": "The IP address to be used for this host, or `ignore` to ignore any DHCP request from this host.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The hardware address(es) of this host, separated by spaces.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Hostname to assign.\n"
+                }
+            },
+            "required": [
+                "dns",
+                "ip",
+                "mac",
+                "name"
+            ],
+            "inputProperties": {
+                "dns": {
+                    "type": "boolean",
+                    "description": "Add static forward and reverse DNS entries for this host.\n"
+                },
+                "ip": {
+                    "type": "string",
+                    "description": "The IP address to be used for this host, or `ignore` to ignore any DHCP request from this host.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The hardware address(es) of this host, separated by spaces.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Hostname to assign.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DhcpHost resources.\n",
+                "properties": {
+                    "dns": {
+                        "type": "boolean",
+                        "description": "Add static forward and reverse DNS entries for this host.\n"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address to be used for this host, or `ignore` to ignore any DHCP request from this host.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The hardware address(es) of this host, separated by spaces.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Hostname to assign.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/dhcpOdhcpd:DhcpOdhcpd": {
+            "description": "An embedded DHCP/DHCPv6/RA server \u0026 NDP relay.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.DhcpOdhcpd;\nimport com.pulumi.openwrt.DhcpOdhcpdArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var this_ = new DhcpOdhcpd(\"this\", DhcpOdhcpdArgs.builder()        \n            .id(\"testing\")\n            .leasefile(\"/tmp/leasefile\")\n            .leasetrigger(\"/tmp/leasetrigger\")\n            .legacy(true)\n            .loglevel(6)\n            .maindhcp(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  this:\n    type: openwrt:DhcpOdhcpd\n    properties:\n      id: testing\n      leasefile: /tmp/leasefile\n      leasetrigger: /tmp/leasetrigger\n      legacy: true\n      loglevel: 6\n      maindhcp: true\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"dhcp\", \"odhcpd\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/dhcpOdhcpd:DhcpOdhcpd this cfg123456\n```\n\n ",
+            "properties": {
+                "leasefile": {
+                    "type": "string",
+                    "description": "Location of the lease/hostfile for DHCPv4 and DHCPv6.\n"
+                },
+                "leasetrigger": {
+                    "type": "string",
+                    "description": "Location of the lease trigger script.\n"
+                },
+                "legacy": {
+                    "type": "boolean",
+                    "description": "Enable DHCPv4 if the 'dhcp' section constains a `start` option, but no `dhcpv4` option set.\n"
+                },
+                "loglevel": {
+                    "type": "integer",
+                    "description": "Syslog level priority (0-7).\n"
+                },
+                "maindhcp": {
+                    "type": "boolean",
+                    "description": "Use odhcpd as the main DHCPv4 service.\n"
+                }
+            },
+            "required": [
+                "leasefile",
+                "leasetrigger",
+                "legacy",
+                "loglevel",
+                "maindhcp"
+            ],
+            "inputProperties": {
+                "leasefile": {
+                    "type": "string",
+                    "description": "Location of the lease/hostfile for DHCPv4 and DHCPv6.\n"
+                },
+                "leasetrigger": {
+                    "type": "string",
+                    "description": "Location of the lease trigger script.\n"
+                },
+                "legacy": {
+                    "type": "boolean",
+                    "description": "Enable DHCPv4 if the 'dhcp' section constains a `start` option, but no `dhcpv4` option set.\n"
+                },
+                "loglevel": {
+                    "type": "integer",
+                    "description": "Syslog level priority (0-7).\n"
+                },
+                "maindhcp": {
+                    "type": "boolean",
+                    "description": "Use odhcpd as the main DHCPv4 service.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DhcpOdhcpd resources.\n",
+                "properties": {
+                    "leasefile": {
+                        "type": "string",
+                        "description": "Location of the lease/hostfile for DHCPv4 and DHCPv6.\n"
+                    },
+                    "leasetrigger": {
+                        "type": "string",
+                        "description": "Location of the lease trigger script.\n"
+                    },
+                    "legacy": {
+                        "type": "boolean",
+                        "description": "Enable DHCPv4 if the 'dhcp' section constains a `start` option, but no `dhcpv4` option set.\n"
+                    },
+                    "loglevel": {
+                        "type": "integer",
+                        "description": "Syslog level priority (0-7).\n"
+                    },
+                    "maindhcp": {
+                        "type": "boolean",
+                        "description": "Use odhcpd as the main DHCPv4 service.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/networkDevice:NetworkDevice": {
+            "description": "A physical or virtual \"device\" in OpenWrt jargon. Commonly referred to as an \"interface\" in other networking jargon.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkDevice;\nimport com.pulumi.openwrt.NetworkDeviceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var brTesting = new NetworkDevice(\"brTesting\", NetworkDeviceArgs.builder()        \n            .id(\"br_testing\")\n            .ports(            \n                \"eth0\",\n                \"eth1\",\n                \"eth2.20\")\n            .type(\"bridge\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  brTesting:\n    type: openwrt:NetworkDevice\n    properties:\n      id: br_testing\n      ports:\n        - eth0\n        - eth1\n        - eth2.20\n      type: bridge\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id and UCI name from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"network\", \"device\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"], uciName.name})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg030f15\",\n\n\n\n \"uciName\"\"foo\"\n\n },\n\n {\n\n\n\n \"terraformId\"\"cfg040f15\",\n\n\n\n \"uciName\"\"bar\"\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/networkDevice:NetworkDevice foo cfg030f15\n```\n\n ",
+            "properties": {
+                "bridgeEmpty": {
+                    "type": "boolean",
+                    "description": "Bring up the bridge device even if no ports are attached\n"
+                },
+                "dadtransmits": {
+                    "type": "integer",
+                    "description": "Amount of Duplicate Address Detection probes to send\n"
+                },
+                "ipv6": {
+                    "type": "boolean",
+                    "description": "Enable IPv6 for the device.\n"
+                },
+                "macaddr": {
+                    "type": "string",
+                    "description": "MAC Address of the device.\n"
+                },
+                "mtu": {
+                    "type": "integer",
+                    "description": "Maximum Transmissible Unit.\n"
+                },
+                "mtu6": {
+                    "type": "integer",
+                    "description": "Maximum Transmissible Unit for IPv6.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the device. This name is referenced in other network configuration.\n"
+                },
+                "ports": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the wired ports to attach to this bridge.\n"
+                },
+                "txqueuelen": {
+                    "type": "integer",
+                    "description": "Transmission queue length.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of device. Currently, only \"bridge\" is supported.\n"
+                }
+            },
+            "required": [
+                "bridgeEmpty",
+                "dadtransmits",
+                "ipv6",
+                "macaddr",
+                "mtu",
+                "mtu6",
+                "name",
+                "ports",
+                "txqueuelen",
+                "type"
+            ],
+            "inputProperties": {
+                "bridgeEmpty": {
+                    "type": "boolean",
+                    "description": "Bring up the bridge device even if no ports are attached\n"
+                },
+                "dadtransmits": {
+                    "type": "integer",
+                    "description": "Amount of Duplicate Address Detection probes to send\n"
+                },
+                "ipv6": {
+                    "type": "boolean",
+                    "description": "Enable IPv6 for the device.\n"
+                },
+                "macaddr": {
+                    "type": "string",
+                    "description": "MAC Address of the device.\n"
+                },
+                "mtu": {
+                    "type": "integer",
+                    "description": "Maximum Transmissible Unit.\n"
+                },
+                "mtu6": {
+                    "type": "integer",
+                    "description": "Maximum Transmissible Unit for IPv6.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the device. This name is referenced in other network configuration.\n"
+                },
+                "ports": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the wired ports to attach to this bridge.\n"
+                },
+                "txqueuelen": {
+                    "type": "integer",
+                    "description": "Transmission queue length.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of device. Currently, only \"bridge\" is supported.\n"
+                }
+            },
+            "requiredInputs": [
+                "type"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NetworkDevice resources.\n",
+                "properties": {
+                    "bridgeEmpty": {
+                        "type": "boolean",
+                        "description": "Bring up the bridge device even if no ports are attached\n"
+                    },
+                    "dadtransmits": {
+                        "type": "integer",
+                        "description": "Amount of Duplicate Address Detection probes to send\n"
+                    },
+                    "ipv6": {
+                        "type": "boolean",
+                        "description": "Enable IPv6 for the device.\n"
+                    },
+                    "macaddr": {
+                        "type": "string",
+                        "description": "MAC Address of the device.\n"
+                    },
+                    "mtu": {
+                        "type": "integer",
+                        "description": "Maximum Transmissible Unit.\n"
+                    },
+                    "mtu6": {
+                        "type": "integer",
+                        "description": "Maximum Transmissible Unit for IPv6.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the device. This name is referenced in other network configuration.\n"
+                    },
+                    "ports": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specifies the wired ports to attach to this bridge.\n"
+                    },
+                    "txqueuelen": {
+                        "type": "integer",
+                        "description": "Transmission queue length.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of device. Currently, only \"bridge\" is supported.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/networkGlobals:NetworkGlobals": {
+            "description": "Contains interface-independent options affecting the network configuration in general.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkGlobals;\nimport com.pulumi.openwrt.NetworkGlobalsArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var this_ = new NetworkGlobals(\"this\", NetworkGlobalsArgs.builder()        \n            .id(\"globals\")\n            .packetSteering(false)\n            .ulaPrefix(\"fd12:3456:789a::/48\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  this:\n    type: openwrt:NetworkGlobals\n    properties:\n      id: globals\n      packetSteering: false\n      ulaPrefix: fd12:3456:789a::/48\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nThere should only be one `network.globals` config. It seems to default to the UCI name of `globals`.\n\n```sh\n $ pulumi import openwrt:index/networkGlobals:NetworkGlobals this globals\n```\n\n ",
+            "properties": {
+                "packetSteering": {
+                    "type": "boolean",
+                    "description": "Use every CPU to handle packet traffic.\n"
+                },
+                "ulaPrefix": {
+                    "type": "string",
+                    "description": "IPv6 ULA prefix for this device.\n"
+                }
+            },
+            "required": [
+                "packetSteering",
+                "ulaPrefix"
+            ],
+            "inputProperties": {
+                "packetSteering": {
+                    "type": "boolean",
+                    "description": "Use every CPU to handle packet traffic.\n"
+                },
+                "ulaPrefix": {
+                    "type": "string",
+                    "description": "IPv6 ULA prefix for this device.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NetworkGlobals resources.\n",
+                "properties": {
+                    "packetSteering": {
+                        "type": "boolean",
+                        "description": "Use every CPU to handle packet traffic.\n"
+                    },
+                    "ulaPrefix": {
+                        "type": "string",
+                        "description": "IPv6 ULA prefix for this device.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/networkInterface:NetworkInterface": {
+            "description": "A logic network.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkDevice;\nimport com.pulumi.openwrt.NetworkDeviceArgs;\nimport com.pulumi.openwrt.NetworkInterface;\nimport com.pulumi.openwrt.NetworkInterfaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var brTesting = new NetworkDevice(\"brTesting\", NetworkDeviceArgs.builder()        \n            .id(\"br_testing\")\n            .ports(            \n                \"eth0\",\n                \"eth1\",\n                \"eth2.20\")\n            .type(\"bridge\")\n            .build());\n\n        var testing = new NetworkInterface(\"testing\", NetworkInterfaceArgs.builder()        \n            .device(brTesting.name())\n            .dns(            \n                \"9.9.9.9\",\n                \"1.1.1.1\")\n            .id(\"testing\")\n            .ipaddr(\"192.168.3.1\")\n            .netmask(\"255.255.255.0\")\n            .proto(\"static\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  brTesting:\n    type: openwrt:NetworkDevice\n    properties:\n      id: br_testing\n      ports:\n        - eth0\n        - eth1\n        - eth2.20\n      type: bridge\n  testing:\n    type: openwrt:NetworkInterface\n    properties:\n      device: ${brTesting.name}\n      dns:\n        - 9.9.9.9\n        - 1.1.1.1\n      id: testing\n      ipaddr: 192.168.3.1\n      netmask: 255.255.255.0\n      proto: static\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id is the same as the UCI name from LuCI's JSON-RPC API. It is also generally the lower-cased version of the interface name in LuCI's web UI. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"network\", \"interface\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map(.[\".name\"])' # This command will output something like# [\n\n \"loopback\",\n\n \"wan\",\n\n \"wan6\" ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/networkInterface:NetworkInterface loopback loopback\n```\n\n ",
+            "properties": {
+                "auto": {
+                    "type": "boolean",
+                    "description": "Specifies whether to bring up this interface on boot.\n"
+                },
+                "device": {
+                    "type": "string",
+                    "description": "Name of the (physical or virtual) device. This name is what the device is known as in LuCI or the `name` field in\nTerraform. This is not the UCI config name.\n"
+                },
+                "disabled": {
+                    "type": "boolean",
+                    "description": "Disables this interface.\n"
+                },
+                "dns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "DNS servers\n"
+                },
+                "gateway": {
+                    "type": "string",
+                    "description": "Gateway of the interface\n"
+                },
+                "ip6assign": {
+                    "type": "integer",
+                    "description": "Delegate a prefix of given length to this interface\n"
+                },
+                "ipaddr": {
+                    "type": "string",
+                    "description": "IP address of the interface\n"
+                },
+                "macaddr": {
+                    "type": "string",
+                    "description": "Override the MAC Address of this interface.\n"
+                },
+                "mtu": {
+                    "type": "integer",
+                    "description": "Override the default MTU on this interface.\n"
+                },
+                "netmask": {
+                    "type": "string",
+                    "description": "Netmask of the interface\n"
+                },
+                "peerdns": {
+                    "type": "boolean",
+                    "description": "Use DHCP-provided DNS servers.\n"
+                },
+                "proto": {
+                    "type": "string",
+                    "description": "The protocol type of the interface. Currently, only \"dhcp, and \"static\" are supported.\n"
+                },
+                "reqaddress": {
+                    "type": "string",
+                    "description": "Behavior for requesting address. Can only be one of \"force\", \"try\", or \"none\".\n"
+                },
+                "reqprefix": {
+                    "type": "string",
+                    "description": "Behavior for requesting prefixes. Currently, only \"auto\" is supported.\n"
+                }
+            },
+            "required": [
+                "auto",
+                "device",
+                "disabled",
+                "dns",
+                "gateway",
+                "ip6assign",
+                "ipaddr",
+                "macaddr",
+                "mtu",
+                "netmask",
+                "peerdns",
+                "proto",
+                "reqaddress",
+                "reqprefix"
+            ],
+            "inputProperties": {
+                "auto": {
+                    "type": "boolean",
+                    "description": "Specifies whether to bring up this interface on boot.\n"
+                },
+                "device": {
+                    "type": "string",
+                    "description": "Name of the (physical or virtual) device. This name is what the device is known as in LuCI or the `name` field in\nTerraform. This is not the UCI config name.\n"
+                },
+                "disabled": {
+                    "type": "boolean",
+                    "description": "Disables this interface.\n"
+                },
+                "dns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "DNS servers\n"
+                },
+                "gateway": {
+                    "type": "string",
+                    "description": "Gateway of the interface\n"
+                },
+                "ip6assign": {
+                    "type": "integer",
+                    "description": "Delegate a prefix of given length to this interface\n"
+                },
+                "ipaddr": {
+                    "type": "string",
+                    "description": "IP address of the interface\n"
+                },
+                "macaddr": {
+                    "type": "string",
+                    "description": "Override the MAC Address of this interface.\n"
+                },
+                "mtu": {
+                    "type": "integer",
+                    "description": "Override the default MTU on this interface.\n"
+                },
+                "netmask": {
+                    "type": "string",
+                    "description": "Netmask of the interface\n"
+                },
+                "peerdns": {
+                    "type": "boolean",
+                    "description": "Use DHCP-provided DNS servers.\n"
+                },
+                "proto": {
+                    "type": "string",
+                    "description": "The protocol type of the interface. Currently, only \"dhcp, and \"static\" are supported.\n"
+                },
+                "reqaddress": {
+                    "type": "string",
+                    "description": "Behavior for requesting address. Can only be one of \"force\", \"try\", or \"none\".\n"
+                },
+                "reqprefix": {
+                    "type": "string",
+                    "description": "Behavior for requesting prefixes. Currently, only \"auto\" is supported.\n"
+                }
+            },
+            "requiredInputs": [
+                "device",
+                "proto"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NetworkInterface resources.\n",
+                "properties": {
+                    "auto": {
+                        "type": "boolean",
+                        "description": "Specifies whether to bring up this interface on boot.\n"
+                    },
+                    "device": {
+                        "type": "string",
+                        "description": "Name of the (physical or virtual) device. This name is what the device is known as in LuCI or the `name` field in\nTerraform. This is not the UCI config name.\n"
+                    },
+                    "disabled": {
+                        "type": "boolean",
+                        "description": "Disables this interface.\n"
+                    },
+                    "dns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "DNS servers\n"
+                    },
+                    "gateway": {
+                        "type": "string",
+                        "description": "Gateway of the interface\n"
+                    },
+                    "ip6assign": {
+                        "type": "integer",
+                        "description": "Delegate a prefix of given length to this interface\n"
+                    },
+                    "ipaddr": {
+                        "type": "string",
+                        "description": "IP address of the interface\n"
+                    },
+                    "macaddr": {
+                        "type": "string",
+                        "description": "Override the MAC Address of this interface.\n"
+                    },
+                    "mtu": {
+                        "type": "integer",
+                        "description": "Override the default MTU on this interface.\n"
+                    },
+                    "netmask": {
+                        "type": "string",
+                        "description": "Netmask of the interface\n"
+                    },
+                    "peerdns": {
+                        "type": "boolean",
+                        "description": "Use DHCP-provided DNS servers.\n"
+                    },
+                    "proto": {
+                        "type": "string",
+                        "description": "The protocol type of the interface. Currently, only \"dhcp, and \"static\" are supported.\n"
+                    },
+                    "reqaddress": {
+                        "type": "string",
+                        "description": "Behavior for requesting address. Can only be one of \"force\", \"try\", or \"none\".\n"
+                    },
+                    "reqprefix": {
+                        "type": "string",
+                        "description": "Behavior for requesting prefixes. Currently, only \"auto\" is supported.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/networkSwitch:NetworkSwitch": {
+            "description": "Legacy `swconfig` configuration\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkSwitch;\nimport com.pulumi.openwrt.NetworkSwitchArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testing = new NetworkSwitch(\"testing\", NetworkSwitchArgs.builder()        \n            .enableVlan(true)\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  testing:\n    type: openwrt:NetworkSwitch\n    properties:\n      enableVlan: true\n      id: testing\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nThe name can be found through LuCI's web UI. It will be in quotes on `/cgi-bin/luci/admin/network/switch`. The page might say:\n\n\n\n Switch \"switch0\" # The \"switch0\" is the name. The name can also be found from LuCI's JSON-RPC API. # Find the Terraform id and UCI name from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"network\", \"switch\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"], uciName.name})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n\n\n \"uciName\"\"switch0\"\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/networkSwitch:NetworkSwitch switch0 cfg123456\n```\n\n ",
+            "properties": {
+                "enableMirrorRx": {
+                    "type": "boolean",
+                    "description": "Mirror received packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                },
+                "enableMirrorTx": {
+                    "type": "boolean",
+                    "description": "Mirror transmitted packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                },
+                "enableVlan": {
+                    "type": "boolean",
+                    "description": "Enables VLAN functionality.\n"
+                },
+                "mirrorMonitorPort": {
+                    "type": "integer",
+                    "description": "Switch port to which packets are mirrored.\n"
+                },
+                "mirrorSourcePort": {
+                    "type": "integer",
+                    "description": "Switch port from which packets are mirrored.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the switch. This name is what is shown in LuCI or the `name` field in Terraform. This is not the UCI config\nname.\n"
+                },
+                "reset": {
+                    "type": "boolean",
+                    "description": "Reset the switch.\n"
+                }
+            },
+            "required": [
+                "enableMirrorRx",
+                "enableMirrorTx",
+                "enableVlan",
+                "mirrorMonitorPort",
+                "mirrorSourcePort",
+                "name",
+                "reset"
+            ],
+            "inputProperties": {
+                "enableMirrorRx": {
+                    "type": "boolean",
+                    "description": "Mirror received packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                },
+                "enableMirrorTx": {
+                    "type": "boolean",
+                    "description": "Mirror transmitted packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                },
+                "enableVlan": {
+                    "type": "boolean",
+                    "description": "Enables VLAN functionality.\n"
+                },
+                "mirrorMonitorPort": {
+                    "type": "integer",
+                    "description": "Switch port to which packets are mirrored.\n"
+                },
+                "mirrorSourcePort": {
+                    "type": "integer",
+                    "description": "Switch port from which packets are mirrored.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the switch. This name is what is shown in LuCI or the `name` field in Terraform. This is not the UCI config\nname.\n"
+                },
+                "reset": {
+                    "type": "boolean",
+                    "description": "Reset the switch.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NetworkSwitch resources.\n",
+                "properties": {
+                    "enableMirrorRx": {
+                        "type": "boolean",
+                        "description": "Mirror received packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                    },
+                    "enableMirrorTx": {
+                        "type": "boolean",
+                        "description": "Mirror transmitted packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                    },
+                    "enableVlan": {
+                        "type": "boolean",
+                        "description": "Enables VLAN functionality.\n"
+                    },
+                    "mirrorMonitorPort": {
+                        "type": "integer",
+                        "description": "Switch port to which packets are mirrored.\n"
+                    },
+                    "mirrorSourcePort": {
+                        "type": "integer",
+                        "description": "Switch port from which packets are mirrored.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the switch. This name is what is shown in LuCI or the `name` field in Terraform. This is not the UCI config\nname.\n"
+                    },
+                    "reset": {
+                        "type": "boolean",
+                        "description": "Reset the switch.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/networkSwitchVlan:NetworkSwitchVlan": {
+            "description": "Legacy VLAN configuration\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkSwitch;\nimport com.pulumi.openwrt.NetworkSwitchArgs;\nimport com.pulumi.openwrt.NetworkSwitchVlan;\nimport com.pulumi.openwrt.NetworkSwitchVlanArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testingNetworkSwitch = new NetworkSwitch(\"testingNetworkSwitch\", NetworkSwitchArgs.builder()        \n            .enableVlan(true)\n            .id(\"testing\")\n            .build());\n\n        var testingNetworkSwitchVlan = new NetworkSwitchVlan(\"testingNetworkSwitchVlan\", NetworkSwitchVlanArgs.builder()        \n            .device(testingNetworkSwitch.name())\n            .id(\"testing\")\n            .ports(\"0t 1t\")\n            .vid(\"10\")\n            .vlan(\"2\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  testingNetworkSwitch:\n    type: openwrt:NetworkSwitch\n    properties:\n      enableVlan: true\n      id: testing\n  testingNetworkSwitchVlan:\n    type: openwrt:NetworkSwitchVlan\n    properties:\n      device: ${testingNetworkSwitch.name}\n      id: testing\n      ports: 0t 1t\n      vid: '10'\n      vlan: '2'\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"network\", \"switch_vlan\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n },\n\n {\n\n\n\n \"terraformId\"\"cfg123457\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/networkSwitchVlan:NetworkSwitchVlan administration cfg123456\n```\n\n ",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A human-readable description of the VLAN configuration.\n"
+                },
+                "device": {
+                    "type": "string",
+                    "description": "The switch to configure.\n"
+                },
+                "ports": {
+                    "type": "string",
+                    "description": "A string of space-separated port indicies that should be associated with the VLAN. Adding the suffix `\"t\"` to a port indicates that egress packets should be tagged, for example `\"0 1 3t 5t\"`.\n"
+                },
+                "vid": {
+                    "type": "integer",
+                    "description": "The VLAN tag number to use.\n"
+                },
+                "vlan": {
+                    "type": "integer",
+                    "description": "The VLAN \"table index\" to configure. This index corresponds to the order on LuCI's UI\n"
+                }
+            },
+            "required": [
+                "description",
+                "device",
+                "ports",
+                "vid",
+                "vlan"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "A human-readable description of the VLAN configuration.\n"
+                },
+                "device": {
+                    "type": "string",
+                    "description": "The switch to configure.\n"
+                },
+                "ports": {
+                    "type": "string",
+                    "description": "A string of space-separated port indicies that should be associated with the VLAN. Adding the suffix `\"t\"` to a port indicates that egress packets should be tagged, for example `\"0 1 3t 5t\"`.\n"
+                },
+                "vid": {
+                    "type": "integer",
+                    "description": "The VLAN tag number to use.\n"
+                },
+                "vlan": {
+                    "type": "integer",
+                    "description": "The VLAN \"table index\" to configure. This index corresponds to the order on LuCI's UI\n"
+                }
+            },
+            "requiredInputs": [
+                "device",
+                "ports",
+                "vlan"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NetworkSwitchVlan resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "A human-readable description of the VLAN configuration.\n"
+                    },
+                    "device": {
+                        "type": "string",
+                        "description": "The switch to configure.\n"
+                    },
+                    "ports": {
+                        "type": "string",
+                        "description": "A string of space-separated port indicies that should be associated with the VLAN. Adding the suffix `\"t\"` to a port indicates that egress packets should be tagged, for example `\"0 1 3t 5t\"`.\n"
+                    },
+                    "vid": {
+                        "type": "integer",
+                        "description": "The VLAN tag number to use.\n"
+                    },
+                    "vlan": {
+                        "type": "integer",
+                        "description": "The VLAN \"table index\" to configure. This index corresponds to the order on LuCI's UI\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/systemSystem:SystemSystem": {
+            "description": "Provides system data about an OpenWrt device\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.SystemSystem;\nimport com.pulumi.openwrt.SystemSystemArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var this_ = new SystemSystem(\"this\", SystemSystemArgs.builder()        \n            .hostname(\"OpenWrt\")\n            .id(\"cfg01e48a\")\n            .zonename(\"America/Los Angeles\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  this:\n    type: openwrt:SystemSystem\n    properties:\n      hostname: OpenWrt\n      id: cfg01e48a\n      zonename: America/Los Angeles\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nEvery `system.system` seems to have the same UCI name of `cfg01e48a`\n\n```sh\n $ pulumi import openwrt:index/systemSystem:SystemSystem this cfg01e48a\n```\n\n ",
+            "properties": {
+                "conloglevel": {
+                    "type": "integer",
+                    "description": "The maximum log level for kernel messages to be logged to the console.\n"
+                },
+                "cronloglevel": {
+                    "type": "integer",
+                    "description": "The minimum level for cron messages to be logged to syslog.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The hostname for the system.\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "A short single-line description for the system.\n"
+                },
+                "logSize": {
+                    "type": "integer",
+                    "description": "Size of the file based log buffer in KiB.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Multi-line free-form text about the system.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "The POSIX.1 time zone string. This has no corresponding value in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                },
+                "ttylogin": {
+                    "type": "boolean",
+                    "description": "Require authentication for local users to log in the system.\n"
+                },
+                "zonename": {
+                    "type": "string",
+                    "description": "The IANA/Olson time zone string. This corresponds to \"Timezone\" in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                }
+            },
+            "required": [
+                "conloglevel",
+                "cronloglevel",
+                "description",
+                "hostname",
+                "logSize",
+                "notes",
+                "timezone",
+                "ttylogin",
+                "zonename"
+            ],
+            "inputProperties": {
+                "conloglevel": {
+                    "type": "integer",
+                    "description": "The maximum log level for kernel messages to be logged to the console.\n"
+                },
+                "cronloglevel": {
+                    "type": "integer",
+                    "description": "The minimum level for cron messages to be logged to syslog.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The hostname for the system.\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "A short single-line description for the system.\n"
+                },
+                "logSize": {
+                    "type": "integer",
+                    "description": "Size of the file based log buffer in KiB.\n"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Multi-line free-form text about the system.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "The POSIX.1 time zone string. This has no corresponding value in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                },
+                "ttylogin": {
+                    "type": "boolean",
+                    "description": "Require authentication for local users to log in the system.\n"
+                },
+                "zonename": {
+                    "type": "string",
+                    "description": "The IANA/Olson time zone string. This corresponds to \"Timezone\" in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering SystemSystem resources.\n",
+                "properties": {
+                    "conloglevel": {
+                        "type": "integer",
+                        "description": "The maximum log level for kernel messages to be logged to the console.\n"
+                    },
+                    "cronloglevel": {
+                        "type": "integer",
+                        "description": "The minimum level for cron messages to be logged to syslog.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The hostname for the system.\n"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "A short single-line description for the system.\n"
+                    },
+                    "logSize": {
+                        "type": "integer",
+                        "description": "Size of the file based log buffer in KiB.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Multi-line free-form text about the system.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "The POSIX.1 time zone string. This has no corresponding value in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                    },
+                    "ttylogin": {
+                        "type": "boolean",
+                        "description": "Require authentication for local users to log in the system.\n"
+                    },
+                    "zonename": {
+                        "type": "string",
+                        "description": "The IANA/Olson time zone string. This corresponds to \"Timezone\" in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/wirelessWifiDevice:WirelessWifiDevice": {
+            "description": "The physical radio device.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.WirelessWifiDevice;\nimport com.pulumi.openwrt.WirelessWifiDeviceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var fiveGhz = new WirelessWifiDevice(\"fiveGhz\", WirelessWifiDeviceArgs.builder()        \n            .band(\"5g\")\n            .channel(\"auto\")\n            .id(\"cfg123456\")\n            .type(\"mac80211\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  fiveGhz:\n    type: openwrt:WirelessWifiDevice\n    properties:\n      band: 5g\n      channel: auto\n      id: cfg123456\n      type: mac80211\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"wireless\", \"wifi-device\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n },\n\n {\n\n\n\n \"terraformId\"\"cfg123457\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/wirelessWifiDevice:WirelessWifiDevice five_ghz cfg123456\n```\n\n ",
+            "properties": {
+                "band": {
+                    "type": "string",
+                    "description": "Channel width. Must be one of: \"2g\", \"5g\", \"6g\".\n"
+                },
+                "cellDensity": {
+                    "type": "integer",
+                    "description": "Configures data rates based on the coverage cell density. Must be one of 0, 1, 2, 3.\n"
+                },
+                "channel": {
+                    "type": "string",
+                    "description": "The wireless channel. Currently, only \"auto\" is supported.\n"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Two-digit country code. E.g. \"US\".\n"
+                },
+                "htmode": {
+                    "type": "string",
+                    "description": "Channel width. Must be one of: \"HE20\", \"HE40\", \"HE80\", \"HE160\", \"HT20\", \"HT40\", \"HT40-\", \"HT40+\", \"NONE\", \"VHT20\", \"VHT40\", \"VHT80\", \"VHT160\".\n"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Path of the device in `/sys/devices`.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of device. Currently only \"mac80211\" is supported.\n"
+                }
+            },
+            "required": [
+                "band",
+                "cellDensity",
+                "channel",
+                "country",
+                "htmode",
+                "path",
+                "type"
+            ],
+            "inputProperties": {
+                "band": {
+                    "type": "string",
+                    "description": "Channel width. Must be one of: \"2g\", \"5g\", \"6g\".\n"
+                },
+                "cellDensity": {
+                    "type": "integer",
+                    "description": "Configures data rates based on the coverage cell density. Must be one of 0, 1, 2, 3.\n"
+                },
+                "channel": {
+                    "type": "string",
+                    "description": "The wireless channel. Currently, only \"auto\" is supported.\n"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Two-digit country code. E.g. \"US\".\n"
+                },
+                "htmode": {
+                    "type": "string",
+                    "description": "Channel width. Must be one of: \"HE20\", \"HE40\", \"HE80\", \"HE160\", \"HT20\", \"HT40\", \"HT40-\", \"HT40+\", \"NONE\", \"VHT20\", \"VHT40\", \"VHT80\", \"VHT160\".\n"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Path of the device in `/sys/devices`.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of device. Currently only \"mac80211\" is supported.\n"
+                }
+            },
+            "requiredInputs": [
+                "channel",
+                "type"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering WirelessWifiDevice resources.\n",
+                "properties": {
+                    "band": {
+                        "type": "string",
+                        "description": "Channel width. Must be one of: \"2g\", \"5g\", \"6g\".\n"
+                    },
+                    "cellDensity": {
+                        "type": "integer",
+                        "description": "Configures data rates based on the coverage cell density. Must be one of 0, 1, 2, 3.\n"
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "The wireless channel. Currently, only \"auto\" is supported.\n"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "Two-digit country code. E.g. \"US\".\n"
+                    },
+                    "htmode": {
+                        "type": "string",
+                        "description": "Channel width. Must be one of: \"HE20\", \"HE40\", \"HE80\", \"HE160\", \"HT20\", \"HT40\", \"HT40-\", \"HT40+\", \"NONE\", \"VHT20\", \"VHT40\", \"VHT80\", \"VHT160\".\n"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Path of the device in `/sys/devices`.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of device. Currently only \"mac80211\" is supported.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openwrt:index/wirelessWifiIface:WirelessWifiIface": {
+            "description": "A wireless network.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.NetworkInterface;\nimport com.pulumi.openwrt.NetworkInterfaceArgs;\nimport com.pulumi.openwrt.WirelessWifiDevice;\nimport com.pulumi.openwrt.WirelessWifiDeviceArgs;\nimport com.pulumi.openwrt.WirelessWifiIface;\nimport com.pulumi.openwrt.WirelessWifiIfaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var homeNetworkInterface = new NetworkInterface(\"homeNetworkInterface\", NetworkInterfaceArgs.builder()        \n            .device(\"eth0\")\n            .dns(            \n                \"9.9.9.9\",\n                \"1.1.1.1\")\n            .id(\"home\")\n            .ipaddr(\"192.168.3.1\")\n            .netmask(\"255.255.255.0\")\n            .proto(\"static\")\n            .build());\n\n        var fiveGhz = new WirelessWifiDevice(\"fiveGhz\", WirelessWifiDeviceArgs.builder()        \n            .band(\"5g\")\n            .channel(\"auto\")\n            .id(\"radio0\")\n            .type(\"mac80211\")\n            .build());\n\n        var homeWirelessWifiIface = new WirelessWifiIface(\"homeWirelessWifiIface\", WirelessWifiIfaceArgs.builder()        \n            .device(fiveGhz.id())\n            .encryption(\"sae\")\n            .id(\"wifinet0\")\n            .key(\"password\")\n            .mode(\"ap\")\n            .network(homeNetworkInterface.id())\n            .ssid(\"home\")\n            .wpaDisableEapolKeyRetries(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  homeNetworkInterface:\n    type: openwrt:NetworkInterface\n    properties:\n      device: eth0\n      dns:\n        - 9.9.9.9\n        - 1.1.1.1\n      id: home\n      ipaddr: 192.168.3.1\n      netmask: 255.255.255.0\n      proto: static\n  fiveGhz:\n    type: openwrt:WirelessWifiDevice\n    properties:\n      band: 5g\n      channel: auto\n      id: radio0\n      type: mac80211\n  homeWirelessWifiIface:\n    type: openwrt:WirelessWifiIface\n    properties:\n      device: ${fiveGhz.id}\n      encryption: sae\n      id: wifinet0\n      key: password\n      mode: ap\n      network: ${homeNetworkInterface.id}\n      ssid: home\n      wpaDisableEapolKeyRetries: true\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nFind the Terraform id from LuCI's JSON-RPC API. One way to find this information is with `curl` and `jq`# curl \\\n\n\n\n --data '{\"id\"0, \"method\"\"foreach\", \"params\"[\"wireless\", \"wifi-iface\"]}' \\\n\n\n\n http://192.168.1.1/cgi-bin/luci/rpc/uci?auth=$AUTH_TOKEN \\\n\n\n\n | jq '.result | map({terraformId.[\".name\"]})' # This command will output something like# [\n\n {\n\n\n\n \"terraformId\"\"cfg123456\",\n\n },\n\n {\n\n\n\n \"terraformId\"\"cfg123457\",\n\n } ] # We'd then use the information to import the appropriate resource\n\n```sh\n $ pulumi import openwrt:index/wirelessWifiIface:WirelessWifiIface home_network cfg123456\n```\n\n ",
+            "properties": {
+                "device": {
+                    "type": "string",
+                    "description": "Name of the physical device. This name is what the device is known as in LuCI/UCI, or the `id` field in Terraform.\n"
+                },
+                "encryption": {
+                    "type": "string",
+                    "description": "Encryption method. Currently, only PSK encryption methods are supported. Must be one of: \"none\", \"psk\", \"psk2\", \"psk2+aes\", \"psk2+ccmp\", \"psk2+tkip\", \"psk2+tkip+aes\", \"psk2+tkip+ccmp\", \"psk+aes\", \"psk+ccmp\", \"psk-mixed\", \"psk-mixed+aes\", \"psk-mixed+ccmp\", \"psk-mixed+tkip\", \"psk-mixed+tkip+aes\", \"psk-mixed+tkip+ccmp\", \"psk+tkip\", \"psk+tkip+aes\", \"psk+tkip+ccmp\", \"sae\", \"sae-mixed\".\n"
+                },
+                "isolate": {
+                    "type": "boolean",
+                    "description": "Isolate wireless clients from each other.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The pre-shared passphrase from which the pre-shared key will be derived. The clear text key has to be 8-63 characters long.\n",
+                    "secret": true
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "The operation mode of the wireless network interface controller.. Currently only \"ap\" is supported.\n"
+                },
+                "network": {
+                    "type": "string",
+                    "description": "Network interface to attach the wireless network. This name is what the interface is known as in UCI, or the `id` field\nin Terraform.\n"
+                },
+                "ssid": {
+                    "type": "string",
+                    "description": "The broadcasted SSID of the wireless network. This is what actual clients will see the network as.\n"
+                },
+                "wpaDisableEapolKeyRetries": {
+                    "type": "boolean",
+                    "description": "Enable WPA key reinstallation attack (KRACK) workaround. This should be `true` to enable KRACK workaround (you almost surely want this enabled).\n"
+                }
+            },
+            "required": [
+                "device",
+                "encryption",
+                "isolate",
+                "key",
+                "mode",
+                "network",
+                "ssid",
+                "wpaDisableEapolKeyRetries"
+            ],
+            "inputProperties": {
+                "device": {
+                    "type": "string",
+                    "description": "Name of the physical device. This name is what the device is known as in LuCI/UCI, or the `id` field in Terraform.\n"
+                },
+                "encryption": {
+                    "type": "string",
+                    "description": "Encryption method. Currently, only PSK encryption methods are supported. Must be one of: \"none\", \"psk\", \"psk2\", \"psk2+aes\", \"psk2+ccmp\", \"psk2+tkip\", \"psk2+tkip+aes\", \"psk2+tkip+ccmp\", \"psk+aes\", \"psk+ccmp\", \"psk-mixed\", \"psk-mixed+aes\", \"psk-mixed+ccmp\", \"psk-mixed+tkip\", \"psk-mixed+tkip+aes\", \"psk-mixed+tkip+ccmp\", \"psk+tkip\", \"psk+tkip+aes\", \"psk+tkip+ccmp\", \"sae\", \"sae-mixed\".\n"
+                },
+                "isolate": {
+                    "type": "boolean",
+                    "description": "Isolate wireless clients from each other.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The pre-shared passphrase from which the pre-shared key will be derived. The clear text key has to be 8-63 characters long.\n",
+                    "secret": true
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "The operation mode of the wireless network interface controller.. Currently only \"ap\" is supported.\n"
+                },
+                "network": {
+                    "type": "string",
+                    "description": "Network interface to attach the wireless network. This name is what the interface is known as in UCI, or the `id` field\nin Terraform.\n"
+                },
+                "ssid": {
+                    "type": "string",
+                    "description": "The broadcasted SSID of the wireless network. This is what actual clients will see the network as.\n"
+                },
+                "wpaDisableEapolKeyRetries": {
+                    "type": "boolean",
+                    "description": "Enable WPA key reinstallation attack (KRACK) workaround. This should be `true` to enable KRACK workaround (you almost surely want this enabled).\n"
+                }
+            },
+            "requiredInputs": [
+                "device",
+                "mode",
+                "network",
+                "ssid"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering WirelessWifiIface resources.\n",
+                "properties": {
+                    "device": {
+                        "type": "string",
+                        "description": "Name of the physical device. This name is what the device is known as in LuCI/UCI, or the `id` field in Terraform.\n"
+                    },
+                    "encryption": {
+                        "type": "string",
+                        "description": "Encryption method. Currently, only PSK encryption methods are supported. Must be one of: \"none\", \"psk\", \"psk2\", \"psk2+aes\", \"psk2+ccmp\", \"psk2+tkip\", \"psk2+tkip+aes\", \"psk2+tkip+ccmp\", \"psk+aes\", \"psk+ccmp\", \"psk-mixed\", \"psk-mixed+aes\", \"psk-mixed+ccmp\", \"psk-mixed+tkip\", \"psk-mixed+tkip+aes\", \"psk-mixed+tkip+ccmp\", \"psk+tkip\", \"psk+tkip+aes\", \"psk+tkip+ccmp\", \"sae\", \"sae-mixed\".\n"
+                    },
+                    "isolate": {
+                        "type": "boolean",
+                        "description": "Isolate wireless clients from each other.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The pre-shared passphrase from which the pre-shared key will be derived. The clear text key has to be 8-63 characters long.\n",
+                        "secret": true
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "The operation mode of the wireless network interface controller.. Currently only \"ap\" is supported.\n"
+                    },
+                    "network": {
+                        "type": "string",
+                        "description": "Network interface to attach the wireless network. This name is what the interface is known as in UCI, or the `id` field\nin Terraform.\n"
+                    },
+                    "ssid": {
+                        "type": "string",
+                        "description": "The broadcasted SSID of the wireless network. This is what actual clients will see the network as.\n"
+                    },
+                    "wpaDisableEapolKeyRetries": {
+                        "type": "boolean",
+                        "description": "Enable WPA key reinstallation attack (KRACK) workaround. This should be `true` to enable KRACK workaround (you almost surely want this enabled).\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "openwrt:index/getDhcpDhcp:getDhcpDhcp": {
+            "description": "Per interface lease pools and settings for serving DHCP requests.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getDhcpDhcp({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_dhcp_dhcp(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetDhcpDhcp.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupDhcpDhcp(ctx, \u0026openwrt.LookupDhcpDhcpArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetDhcpDhcpArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getDhcpDhcp(GetDhcpDhcpArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getDhcpDhcp\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDhcpDhcp.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDhcpDhcp.\n",
+                "properties": {
+                    "dhcpv4": {
+                        "type": "string",
+                        "description": "The mode of the DHCPv4 server. Must be one of: \"disabled\", \"server\".\n"
+                    },
+                    "dhcpv6": {
+                        "type": "string",
+                        "description": "The mode of the DHCPv6 server. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                    },
+                    "force": {
+                        "type": "boolean",
+                        "description": "Forces DHCP serving on the specified interface even if another DHCP server is detected on the same network segment.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ignore": {
+                        "type": "boolean",
+                        "description": "Specifies whether dnsmasq should ignore this pool.\n"
+                    },
+                    "interface": {
+                        "type": "string"
+                    },
+                    "leasetime": {
+                        "type": "string",
+                        "description": "The lease time of addresses handed out to clients. E.g. `12h`, or `30m`. Required if `ignore` is not `true`.\n"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Specifies the size of the address pool. E.g. With start = 100, and limit = 150, the maximum address will be 249. Required if `ignore` is not `true`.\n"
+                    },
+                    "ra": {
+                        "type": "string",
+                        "description": "The mode of Router Advertisements. Must be one of: \"disabled\", \"relay\", \"server\".\n"
+                    },
+                    "raFlags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Router Advertisement flags to include in messages. Must be one of: \"home-agent\", \"managed-config\", \"none\", \"other-config\".\n"
+                    },
+                    "start": {
+                        "type": "integer",
+                        "description": "Specifies the offset from the network address of the underlying interface to calculate the minimum address that may be leased to clients. It may be greater than 255 to span subnets. Required if `ignore` is not `true`.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "dhcpv4",
+                    "dhcpv6",
+                    "force",
+                    "id",
+                    "ignore",
+                    "interface",
+                    "leasetime",
+                    "limit",
+                    "ra",
+                    "raFlags",
+                    "start"
+                ]
+            }
+        },
+        "openwrt:index/getDhcpDnsmasq:getDhcpDnsmasq": {
+            "description": "A lightweight DHCP and caching DNS server.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getDhcpDnsmasq({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_dhcp_dnsmasq(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetDhcpDnsmasq.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupDhcpDnsmasq(ctx, \u0026openwrt.LookupDhcpDnsmasqArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetDhcpDnsmasqArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getDhcpDnsmasq(GetDhcpDnsmasqArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getDhcpDnsmasq\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDhcpDnsmasq.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDhcpDnsmasq.\n",
+                "properties": {
+                    "authoritative": {
+                        "type": "boolean",
+                        "description": "Force dnsmasq into authoritative mode. This speeds up DHCP leasing. Used if this is the only server on the network.\n"
+                    },
+                    "domain": {
+                        "type": "string",
+                        "description": "DNS domain handed out to DHCP clients.\n"
+                    },
+                    "domainneeded": {
+                        "type": "boolean",
+                        "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                    },
+                    "ednspacketMax": {
+                        "type": "integer",
+                        "description": "Specify the largest EDNS.0 UDP packet which is supported by the DNS forwarder.\n"
+                    },
+                    "expandhosts": {
+                        "type": "boolean",
+                        "description": "Never forward queries for plain names, without dots or domain parts, to upstream nameservers.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "leasefile": {
+                        "type": "string",
+                        "description": "Store DHCP leases in this file.\n"
+                    },
+                    "local": {
+                        "type": "string",
+                        "description": "Look up DNS entries for this domain from `/etc/hosts`.\n"
+                    },
+                    "localiseQueries": {
+                        "type": "boolean",
+                        "description": "Choose IP address to match the incoming interface if multiple addresses are assigned to a host name in `/etc/hosts`.\n"
+                    },
+                    "localservice": {
+                        "type": "boolean",
+                        "description": "Accept DNS queries only from hosts whose address is on a local subnet.\n"
+                    },
+                    "readethers": {
+                        "type": "boolean",
+                        "description": "Read static lease entries from `/etc/ethers`, re-read on SIGHUP.\n"
+                    },
+                    "rebindLocalhost": {
+                        "type": "boolean",
+                        "description": "Allows upstream 127.0.0.0/8 responses, required for DNS based blocklist services. Only takes effect if rebind protection is enabled.\n"
+                    },
+                    "rebindProtection": {
+                        "type": "boolean",
+                        "description": "Enables DNS rebind attack protection by discarding upstream RFC1918 responses.\n"
+                    },
+                    "resolvfile": {
+                        "type": "string",
+                        "description": "Specifies an alternative resolv file.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "authoritative",
+                    "domain",
+                    "domainneeded",
+                    "ednspacketMax",
+                    "expandhosts",
+                    "id",
+                    "leasefile",
+                    "local",
+                    "localiseQueries",
+                    "localservice",
+                    "readethers",
+                    "rebindLocalhost",
+                    "rebindProtection",
+                    "resolvfile"
+                ]
+            }
+        },
+        "openwrt:index/getDhcpDomain:getDhcpDomain": {
+            "description": "Binds a domain name to an IP address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getDhcpDomain({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_dhcp_domain(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetDhcpDomain.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupDhcpDomain(ctx, \u0026openwrt.LookupDhcpDomainArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetDhcpDomainArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getDhcpDomain(GetDhcpDomainArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getDhcpDomain\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDhcpDomain.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDhcpDomain.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address to be used for this domain.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Hostname to assign.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "ip",
+                    "name"
+                ]
+            }
+        },
+        "openwrt:index/getDhcpHost:getDhcpHost": {
+            "description": "Assign a fixed IP address to hosts.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getDhcpHost({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_dhcp_host(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetDhcpHost.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupDhcpHost(ctx, \u0026openwrt.LookupDhcpHostArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetDhcpHostArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getDhcpHost(GetDhcpHostArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getDhcpHost\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDhcpHost.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDhcpHost.\n",
+                "properties": {
+                    "dns": {
+                        "type": "boolean",
+                        "description": "Add static forward and reverse DNS entries for this host.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address to be used for this host, or `ignore` to ignore any DHCP request from this host.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The hardware address(es) of this host, separated by spaces.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Hostname to assign.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "dns",
+                    "id",
+                    "ip",
+                    "mac",
+                    "name"
+                ]
+            }
+        },
+        "openwrt:index/getDhcpOdhcpd:getDhcpOdhcpd": {
+            "description": "An embedded DHCP/DHCPv6/RA server \u0026 NDP relay.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getDhcpOdhcpd({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_dhcp_odhcpd(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetDhcpOdhcpd.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupDhcpOdhcpd(ctx, \u0026openwrt.LookupDhcpOdhcpdArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetDhcpOdhcpdArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getDhcpOdhcpd(GetDhcpOdhcpdArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getDhcpOdhcpd\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getDhcpOdhcpd.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getDhcpOdhcpd.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "leasefile": {
+                        "type": "string",
+                        "description": "Location of the lease/hostfile for DHCPv4 and DHCPv6.\n"
+                    },
+                    "leasetrigger": {
+                        "type": "string",
+                        "description": "Location of the lease trigger script.\n"
+                    },
+                    "legacy": {
+                        "type": "boolean",
+                        "description": "Enable DHCPv4 if the 'dhcp' section constains a `start` option, but no `dhcpv4` option set.\n"
+                    },
+                    "loglevel": {
+                        "type": "integer",
+                        "description": "Syslog level priority (0-7).\n"
+                    },
+                    "maindhcp": {
+                        "type": "boolean",
+                        "description": "Use odhcpd as the main DHCPv4 service.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "leasefile",
+                    "leasetrigger",
+                    "legacy",
+                    "loglevel",
+                    "maindhcp"
+                ]
+            }
+        },
+        "openwrt:index/getNetworkDevice:getNetworkDevice": {
+            "description": "A physical or virtual \"device\" in OpenWrt jargon. Commonly referred to as an \"interface\" in other networking jargon.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst brTesting = openwrt.getNetworkDevice({\n    id: \"br_testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\nbr_testing = openwrt.get_network_device(id=\"br_testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var brTesting = Openwrt.GetNetworkDevice.Invoke(new()\n    {\n        Id = \"br_testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupNetworkDevice(ctx, \u0026openwrt.LookupNetworkDeviceArgs{\n\t\t\tId: \"br_testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetNetworkDeviceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var brTesting = OpenwrtFunctions.getNetworkDevice(GetNetworkDeviceArgs.builder()\n            .id(\"br_testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  brTesting:\n    fn::invoke:\n      Function: openwrt:getNetworkDevice\n      Arguments:\n        id: br_testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetworkDevice.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetworkDevice.\n",
+                "properties": {
+                    "bridgeEmpty": {
+                        "type": "boolean",
+                        "description": "Bring up the bridge device even if no ports are attached\n"
+                    },
+                    "dadtransmits": {
+                        "type": "integer",
+                        "description": "Amount of Duplicate Address Detection probes to send\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ipv6": {
+                        "type": "boolean",
+                        "description": "Enable IPv6 for the device.\n"
+                    },
+                    "macaddr": {
+                        "type": "string",
+                        "description": "MAC Address of the device.\n"
+                    },
+                    "mtu": {
+                        "type": "integer",
+                        "description": "Maximum Transmissible Unit.\n"
+                    },
+                    "mtu6": {
+                        "type": "integer",
+                        "description": "Maximum Transmissible Unit for IPv6.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the device. This name is referenced in other network configuration.\n"
+                    },
+                    "ports": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specifies the wired ports to attach to this bridge.\n"
+                    },
+                    "txqueuelen": {
+                        "type": "integer",
+                        "description": "Transmission queue length.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of device. Currently, only \"bridge\" is supported.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "bridgeEmpty",
+                    "dadtransmits",
+                    "id",
+                    "ipv6",
+                    "macaddr",
+                    "mtu",
+                    "mtu6",
+                    "name",
+                    "ports",
+                    "txqueuelen",
+                    "type"
+                ]
+            }
+        },
+        "openwrt:index/getNetworkGlobals:getNetworkGlobals": {
+            "description": "Contains interface-independent options affecting the network configuration in general.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst this = openwrt.getNetworkGlobals({\n    id: \"globals\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\nthis = openwrt.get_network_globals(id=\"globals\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var @this = Openwrt.GetNetworkGlobals.Invoke(new()\n    {\n        Id = \"globals\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupNetworkGlobals(ctx, \u0026openwrt.LookupNetworkGlobalsArgs{\n\t\t\tId: \"globals\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetNetworkGlobalsArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var this = OpenwrtFunctions.getNetworkGlobals(GetNetworkGlobalsArgs.builder()\n            .id(\"globals\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  this:\n    fn::invoke:\n      Function: openwrt:getNetworkGlobals\n      Arguments:\n        id: globals\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetworkGlobals.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetworkGlobals.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "packetSteering": {
+                        "type": "boolean",
+                        "description": "Use every CPU to handle packet traffic.\n"
+                    },
+                    "ulaPrefix": {
+                        "type": "string",
+                        "description": "IPv6 ULA prefix for this device.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "packetSteering",
+                    "ulaPrefix"
+                ]
+            }
+        },
+        "openwrt:index/getNetworkInterface:getNetworkInterface": {
+            "description": "A logic network.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst brTesting = openwrt.getNetworkInterface({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\nbr_testing = openwrt.get_network_interface(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var brTesting = Openwrt.GetNetworkInterface.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupNetworkInterface(ctx, \u0026openwrt.LookupNetworkInterfaceArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetNetworkInterfaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var brTesting = OpenwrtFunctions.getNetworkInterface(GetNetworkInterfaceArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  brTesting:\n    fn::invoke:\n      Function: openwrt:getNetworkInterface\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetworkInterface.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetworkInterface.\n",
+                "properties": {
+                    "auto": {
+                        "type": "boolean",
+                        "description": "Specifies whether to bring up this interface on boot.\n"
+                    },
+                    "device": {
+                        "type": "string"
+                    },
+                    "disabled": {
+                        "type": "boolean",
+                        "description": "Disables this interface.\n"
+                    },
+                    "dns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "DNS servers\n"
+                    },
+                    "gateway": {
+                        "type": "string",
+                        "description": "Gateway of the interface\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ip6assign": {
+                        "type": "integer",
+                        "description": "Delegate a prefix of given length to this interface\n"
+                    },
+                    "ipaddr": {
+                        "type": "string",
+                        "description": "IP address of the interface\n"
+                    },
+                    "macaddr": {
+                        "type": "string",
+                        "description": "Override the MAC Address of this interface.\n"
+                    },
+                    "mtu": {
+                        "type": "integer",
+                        "description": "Override the default MTU on this interface.\n"
+                    },
+                    "netmask": {
+                        "type": "string",
+                        "description": "Netmask of the interface\n"
+                    },
+                    "peerdns": {
+                        "type": "boolean",
+                        "description": "Use DHCP-provided DNS servers.\n"
+                    },
+                    "proto": {
+                        "type": "string",
+                        "description": "The protocol type of the interface. Currently, only \"dhcp, and \"static\" are supported.\n"
+                    },
+                    "reqaddress": {
+                        "type": "string",
+                        "description": "Behavior for requesting address. Can only be one of \"force\", \"try\", or \"none\".\n"
+                    },
+                    "reqprefix": {
+                        "type": "string",
+                        "description": "Behavior for requesting prefixes. Currently, only \"auto\" is supported.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "auto",
+                    "device",
+                    "disabled",
+                    "dns",
+                    "gateway",
+                    "id",
+                    "ip6assign",
+                    "ipaddr",
+                    "macaddr",
+                    "mtu",
+                    "netmask",
+                    "peerdns",
+                    "proto",
+                    "reqaddress",
+                    "reqprefix"
+                ]
+            }
+        },
+        "openwrt:index/getNetworkSwitch:getNetworkSwitch": {
+            "description": "Legacy `swconfig` configuration\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getNetworkSwitch({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_network_switch(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetNetworkSwitch.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupNetworkSwitch(ctx, \u0026openwrt.LookupNetworkSwitchArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetNetworkSwitchArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getNetworkSwitch(GetNetworkSwitchArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getNetworkSwitch\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetworkSwitch.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetworkSwitch.\n",
+                "properties": {
+                    "enableMirrorRx": {
+                        "type": "boolean",
+                        "description": "Mirror received packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                    },
+                    "enableMirrorTx": {
+                        "type": "boolean",
+                        "description": "Mirror transmitted packets from the `mirror_source_port` to the `mirror_monitor_port`.\n"
+                    },
+                    "enableVlan": {
+                        "type": "boolean",
+                        "description": "Enables VLAN functionality.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "mirrorMonitorPort": {
+                        "type": "integer",
+                        "description": "Switch port to which packets are mirrored.\n"
+                    },
+                    "mirrorSourcePort": {
+                        "type": "integer",
+                        "description": "Switch port from which packets are mirrored.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "reset": {
+                        "type": "boolean",
+                        "description": "Reset the switch.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "enableMirrorRx",
+                    "enableMirrorTx",
+                    "enableVlan",
+                    "id",
+                    "mirrorMonitorPort",
+                    "mirrorSourcePort",
+                    "name",
+                    "reset"
+                ]
+            }
+        },
+        "openwrt:index/getNetworkSwitchVlan:getNetworkSwitchVlan": {
+            "description": "Legacy VLAN configuration\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getNetworkSwitchVlan({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_network_switch_vlan(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetNetworkSwitchVlan.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupNetworkSwitchVlan(ctx, \u0026openwrt.LookupNetworkSwitchVlanArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetNetworkSwitchVlanArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getNetworkSwitchVlan(GetNetworkSwitchVlanArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getNetworkSwitchVlan\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNetworkSwitchVlan.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNetworkSwitchVlan.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "A human-readable description of the VLAN configuration.\n"
+                    },
+                    "device": {
+                        "type": "string",
+                        "description": "The switch to configure.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "ports": {
+                        "type": "string",
+                        "description": "A string of space-separated port indicies that should be associated with the VLAN. Adding the suffix `\"t\"` to a port indicates that egress packets should be tagged, for example `\"0 1 3t 5t\"`.\n"
+                    },
+                    "vid": {
+                        "type": "integer",
+                        "description": "The VLAN tag number to use.\n"
+                    },
+                    "vlan": {
+                        "type": "integer",
+                        "description": "The VLAN \"table index\" to configure. This index corresponds to the order on LuCI's UI\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "device",
+                    "id",
+                    "ports",
+                    "vid",
+                    "vlan"
+                ]
+            }
+        },
+        "openwrt:index/getSystemSystem:getSystemSystem": {
+            "description": "Provides system data about an OpenWrt device\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst this = openwrt.getSystemSystem({\n    id: \"cfg01e48a\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\nthis = openwrt.get_system_system(id=\"cfg01e48a\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var @this = Openwrt.GetSystemSystem.Invoke(new()\n    {\n        Id = \"cfg01e48a\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupSystemSystem(ctx, \u0026openwrt.LookupSystemSystemArgs{\n\t\t\tId: \"cfg01e48a\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetSystemSystemArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var this = OpenwrtFunctions.getSystemSystem(GetSystemSystemArgs.builder()\n            .id(\"cfg01e48a\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  this:\n    fn::invoke:\n      Function: openwrt:getSystemSystem\n      Arguments:\n        id: cfg01e48a\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getSystemSystem.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getSystemSystem.\n",
+                "properties": {
+                    "conloglevel": {
+                        "type": "integer",
+                        "description": "The maximum log level for kernel messages to be logged to the console.\n"
+                    },
+                    "cronloglevel": {
+                        "type": "integer",
+                        "description": "The minimum level for cron messages to be logged to syslog.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The hostname for the system.\n"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "A short single-line description for the system.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "logSize": {
+                        "type": "integer",
+                        "description": "Size of the file based log buffer in KiB.\n"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "Multi-line free-form text about the system.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "The POSIX.1 time zone string. This has no corresponding value in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                    },
+                    "ttylogin": {
+                        "type": "boolean",
+                        "description": "Require authentication for local users to log in the system.\n"
+                    },
+                    "zonename": {
+                        "type": "string",
+                        "description": "The IANA/Olson time zone string. This corresponds to \"Timezone\" in LuCI. See: https://github.com/openwrt/luci/blob/cd82ccacef78d3bb8b8af6b87dabb9e892e2b2aa/modules/luci-base/luasrc/sys/zoneinfo/tzdata.lua.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "conloglevel",
+                    "cronloglevel",
+                    "description",
+                    "hostname",
+                    "id",
+                    "logSize",
+                    "notes",
+                    "timezone",
+                    "ttylogin",
+                    "zonename"
+                ]
+            }
+        },
+        "openwrt:index/getWirelessWifiDevice:getWirelessWifiDevice": {
+            "description": "The physical radio device.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getWirelessWifiDevice({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_wireless_wifi_device(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetWirelessWifiDevice.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupWirelessWifiDevice(ctx, \u0026openwrt.LookupWirelessWifiDeviceArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetWirelessWifiDeviceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getWirelessWifiDevice(GetWirelessWifiDeviceArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getWirelessWifiDevice\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getWirelessWifiDevice.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getWirelessWifiDevice.\n",
+                "properties": {
+                    "band": {
+                        "type": "string",
+                        "description": "Channel width. Must be one of: \"2g\", \"5g\", \"6g\".\n"
+                    },
+                    "cellDensity": {
+                        "type": "integer",
+                        "description": "Configures data rates based on the coverage cell density. Must be one of 0, 1, 2, 3.\n"
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "The wireless channel. Currently, only \"auto\" is supported.\n"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "Two-digit country code. E.g. \"US\".\n"
+                    },
+                    "htmode": {
+                        "type": "string",
+                        "description": "Channel width. Must be one of: \"HE20\", \"HE40\", \"HE80\", \"HE160\", \"HT20\", \"HT40\", \"HT40-\", \"HT40+\", \"NONE\", \"VHT20\", \"VHT40\", \"VHT80\", \"VHT160\".\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Path of the device in `/sys/devices`.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of device. Currently only \"mac80211\" is supported.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "band",
+                    "cellDensity",
+                    "channel",
+                    "country",
+                    "htmode",
+                    "id",
+                    "path",
+                    "type"
+                ]
+            }
+        },
+        "openwrt:index/getWirelessWifiIface:getWirelessWifiIface": {
+            "description": "A wireless network.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as openwrt from \"@pulumi/openwrt\";\n\nconst testing = openwrt.getWirelessWifiIface({\n    id: \"testing\",\n});\n```\n```python\nimport pulumi\nimport pulumi_openwrt as openwrt\n\ntesting = openwrt.get_wireless_wifi_iface(id=\"testing\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Openwrt = Pulumi.Openwrt;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testing = Openwrt.GetWirelessWifiIface.Invoke(new()\n    {\n        Id = \"testing\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/deposition-cloud/pulumi-openwrt/sdk/go/openwrt\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := openwrt.LookupWirelessWifiIface(ctx, \u0026openwrt.LookupWirelessWifiIfaceArgs{\n\t\t\tId: \"testing\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.openwrt.OpenwrtFunctions;\nimport com.pulumi.openwrt.inputs.GetWirelessWifiIfaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var testing = OpenwrtFunctions.getWirelessWifiIface(GetWirelessWifiIfaceArgs.builder()\n            .id(\"testing\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  testing:\n    fn::invoke:\n      Function: openwrt:getWirelessWifiIface\n      Arguments:\n        id: testing\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getWirelessWifiIface.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getWirelessWifiIface.\n",
+                "properties": {
+                    "device": {
+                        "type": "string"
+                    },
+                    "encryption": {
+                        "type": "string",
+                        "description": "Encryption method. Currently, only PSK encryption methods are supported. Must be one of: \"none\", \"psk\", \"psk2\", \"psk2+aes\", \"psk2+ccmp\", \"psk2+tkip\", \"psk2+tkip+aes\", \"psk2+tkip+ccmp\", \"psk+aes\", \"psk+ccmp\", \"psk-mixed\", \"psk-mixed+aes\", \"psk-mixed+ccmp\", \"psk-mixed+tkip\", \"psk-mixed+tkip+aes\", \"psk-mixed+tkip+ccmp\", \"psk+tkip\", \"psk+tkip+aes\", \"psk+tkip+ccmp\", \"sae\", \"sae-mixed\".\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Name of the section. This name is only used when interacting with UCI directly.\n"
+                    },
+                    "isolate": {
+                        "type": "boolean",
+                        "description": "Isolate wireless clients from each other.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The pre-shared passphrase from which the pre-shared key will be derived. The clear text key has to be 8-63 characters long.\n",
+                        "secret": true
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "The operation mode of the wireless network interface controller.. Currently only \"ap\" is supported.\n"
+                    },
+                    "network": {
+                        "type": "string"
+                    },
+                    "ssid": {
+                        "type": "string",
+                        "description": "The broadcasted SSID of the wireless network. This is what actual clients will see the network as.\n"
+                    },
+                    "wpaDisableEapolKeyRetries": {
+                        "type": "boolean",
+                        "description": "Enable WPA key reinstallation attack (KRACK) workaround. This should be `true` to enable KRACK workaround (you almost surely want this enabled).\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "device",
+                    "encryption",
+                    "id",
+                    "isolate",
+                    "key",
+                    "mode",
+                    "network",
+                    "ssid",
+                    "wpaDisableEapolKeyRetries"
+                ]
+            }
+        }
+    }
+}

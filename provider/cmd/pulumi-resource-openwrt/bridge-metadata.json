@@ -1,1 +1,100 @@
-{}
+{
+    "renames": {
+        "resources": {
+            "openwrt:index/dhcpDhcp:DhcpDhcp": "openwrt_dhcp_dhcp",
+            "openwrt:index/dhcpDnsmasq:DhcpDnsmasq": "openwrt_dhcp_dnsmasq",
+            "openwrt:index/dhcpDomain:DhcpDomain": "openwrt_dhcp_domain",
+            "openwrt:index/dhcpHost:DhcpHost": "openwrt_dhcp_host",
+            "openwrt:index/dhcpOdhcpd:DhcpOdhcpd": "openwrt_dhcp_odhcpd",
+            "openwrt:index/networkDevice:NetworkDevice": "openwrt_network_device",
+            "openwrt:index/networkGlobals:NetworkGlobals": "openwrt_network_globals",
+            "openwrt:index/networkInterface:NetworkInterface": "openwrt_network_interface",
+            "openwrt:index/networkSwitch:NetworkSwitch": "openwrt_network_switch",
+            "openwrt:index/networkSwitchVlan:NetworkSwitchVlan": "openwrt_network_switch_vlan",
+            "openwrt:index/systemSystem:SystemSystem": "openwrt_system_system",
+            "openwrt:index/wirelessWifiDevice:WirelessWifiDevice": "openwrt_wireless_wifi_device",
+            "openwrt:index/wirelessWifiIface:WirelessWifiIface": "openwrt_wireless_wifi_iface"
+        },
+        "functions": {
+            "openwrt:index/getDhcpDhcp:getDhcpDhcp": "openwrt_dhcp_dhcp",
+            "openwrt:index/getDhcpDnsmasq:getDhcpDnsmasq": "openwrt_dhcp_dnsmasq",
+            "openwrt:index/getDhcpDomain:getDhcpDomain": "openwrt_dhcp_domain",
+            "openwrt:index/getDhcpHost:getDhcpHost": "openwrt_dhcp_host",
+            "openwrt:index/getDhcpOdhcpd:getDhcpOdhcpd": "openwrt_dhcp_odhcpd",
+            "openwrt:index/getNetworkDevice:getNetworkDevice": "openwrt_network_device",
+            "openwrt:index/getNetworkGlobals:getNetworkGlobals": "openwrt_network_globals",
+            "openwrt:index/getNetworkInterface:getNetworkInterface": "openwrt_network_interface",
+            "openwrt:index/getNetworkSwitch:getNetworkSwitch": "openwrt_network_switch",
+            "openwrt:index/getNetworkSwitchVlan:getNetworkSwitchVlan": "openwrt_network_switch_vlan",
+            "openwrt:index/getSystemSystem:getSystemSystem": "openwrt_system_system",
+            "openwrt:index/getWirelessWifiDevice:getWirelessWifiDevice": "openwrt_wireless_wifi_device",
+            "openwrt:index/getWirelessWifiIface:getWirelessWifiIface": "openwrt_wireless_wifi_iface"
+        },
+        "renamedProperties": {
+            "openwrt:index/dhcpDhcp:DhcpDhcp": {
+                "raFlags": "ra_flags"
+            },
+            "openwrt:index/dhcpDnsmasq:DhcpDnsmasq": {
+                "ednspacketMax": "ednspacket_max",
+                "localiseQueries": "localise_queries",
+                "rebindLocalhost": "rebind_localhost",
+                "rebindProtection": "rebind_protection"
+            },
+            "openwrt:index/getDhcpDhcp:getDhcpDhcp": {
+                "raFlags": "ra_flags"
+            },
+            "openwrt:index/getDhcpDnsmasq:getDhcpDnsmasq": {
+                "ednspacketMax": "ednspacket_max",
+                "localiseQueries": "localise_queries",
+                "rebindLocalhost": "rebind_localhost",
+                "rebindProtection": "rebind_protection"
+            },
+            "openwrt:index/getNetworkDevice:getNetworkDevice": {
+                "bridgeEmpty": "bridge_empty"
+            },
+            "openwrt:index/getNetworkGlobals:getNetworkGlobals": {
+                "packetSteering": "packet_steering",
+                "ulaPrefix": "ula_prefix"
+            },
+            "openwrt:index/getNetworkSwitch:getNetworkSwitch": {
+                "enableMirrorRx": "enable_mirror_rx",
+                "enableMirrorTx": "enable_mirror_tx",
+                "enableVlan": "enable_vlan",
+                "mirrorMonitorPort": "mirror_monitor_port",
+                "mirrorSourcePort": "mirror_source_port"
+            },
+            "openwrt:index/getSystemSystem:getSystemSystem": {
+                "logSize": "log_size"
+            },
+            "openwrt:index/getWirelessWifiDevice:getWirelessWifiDevice": {
+                "cellDensity": "cell_density"
+            },
+            "openwrt:index/getWirelessWifiIface:getWirelessWifiIface": {
+                "wpaDisableEapolKeyRetries": "wpa_disable_eapol_key_retries"
+            },
+            "openwrt:index/networkDevice:NetworkDevice": {
+                "bridgeEmpty": "bridge_empty"
+            },
+            "openwrt:index/networkGlobals:NetworkGlobals": {
+                "packetSteering": "packet_steering",
+                "ulaPrefix": "ula_prefix"
+            },
+            "openwrt:index/networkSwitch:NetworkSwitch": {
+                "enableMirrorRx": "enable_mirror_rx",
+                "enableMirrorTx": "enable_mirror_tx",
+                "enableVlan": "enable_vlan",
+                "mirrorMonitorPort": "mirror_monitor_port",
+                "mirrorSourcePort": "mirror_source_port"
+            },
+            "openwrt:index/systemSystem:SystemSystem": {
+                "logSize": "log_size"
+            },
+            "openwrt:index/wirelessWifiDevice:WirelessWifiDevice": {
+                "cellDensity": "cell_density"
+            },
+            "openwrt:index/wirelessWifiIface:WirelessWifiIface": {
+                "wpaDisableEapolKeyRetries": "wpa_disable_eapol_key_retries"
+            }
+        }
+    }
+}

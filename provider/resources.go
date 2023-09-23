@@ -17,6 +17,7 @@ package openwrt
 import (
 	_ "embed"
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -68,7 +69,7 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := pf.ShimProvider(openwrt.NewProvider())
+	p := pf.ShimProvider(openwrt.New(version.Version, os.LookupEnv))
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
 		P:    p,
@@ -119,7 +120,7 @@ func Provider() tfbridge.ProviderInfo {
 			// },
 		},
 		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
+		Resources: map[string]*tfbridge.ResourceInfo{
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.
@@ -132,14 +133,40 @@ func Provider() tfbridge.ProviderInfo {
 			// 		"tags": {Type: tfbridge.MakeType("openwrt", "Tags")},
 			// 	},
 			// },
+			"openwrt_dhcp_dhcp":            {Tok: makeResource(mainMod, "openwrt_dhcp_dhcp")},
+			"openwrt_dhcp_dnsmasq":         {Tok: makeResource(mainMod, "openwrt_dhcp_dnsmasq")},
+			"openwrt_dhcp_domain":          {Tok: makeResource(mainMod, "openwrt_dhcp_domain")},
+			"openwrt_dhcp_host":            {Tok: makeResource(mainMod, "openwrt_dhcp_host")},
+			"openwrt_dhcp_odhcpd":          {Tok: makeResource(mainMod, "openwrt_dhcp_odhcpd")},
+			"openwrt_network_device":       {Tok: makeResource(mainMod, "openwrt_network_device")},
+			"openwrt_network_globals":      {Tok: makeResource(mainMod, "openwrt_network_globals")},
+			"openwrt_network_interface":    {Tok: makeResource(mainMod, "openwrt_network_interface")},
+			"openwrt_network_switch":       {Tok: makeResource(mainMod, "openwrt_network_switch")},
+			"openwrt_network_switch_vlan":  {Tok: makeResource(mainMod, "openwrt_network_switch_vlan")},
+			"openwrt_system_system":        {Tok: makeResource(mainMod, "openwrt_system_system")},
+			"openwrt_wireless_wifi_device": {Tok: makeResource(mainMod, "openwrt_wireless_wifi_device")},
+			"openwrt_wireless_wifi_iface":  {Tok: makeResource(mainMod, "openwrt_wireless_wifi_iface")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// Map each resource in the Terraform provider to a Pulumi function. An example
 			// is below.
 			// "aws_ami": {Tok: makeDataSource(mainMod, "aws_ami")},
+			"openwrt_dhcp_dhcp":            {Tok: makeDataSource(mainMod, "openwrt_dhcp_dhcp")},
+			"openwrt_dhcp_dnsmasq":         {Tok: makeDataSource(mainMod, "openwrt_dhcp_dnsmasq")},
+			"openwrt_dhcp_domain":          {Tok: makeDataSource(mainMod, "openwrt_dhcp_domain")},
+			"openwrt_dhcp_host":            {Tok: makeDataSource(mainMod, "openwrt_dhcp_host")},
+			"openwrt_dhcp_odhcpd":          {Tok: makeDataSource(mainMod, "openwrt_dhcp_odhcpd")},
+			"openwrt_network_device":       {Tok: makeDataSource(mainMod, "openwrt_network_device")},
+			"openwrt_network_globals":      {Tok: makeDataSource(mainMod, "openwrt_network_globals")},
+			"openwrt_network_interface":    {Tok: makeDataSource(mainMod, "openwrt_network_interface")},
+			"openwrt_network_switch":       {Tok: makeDataSource(mainMod, "openwrt_network_switch")},
+			"openwrt_network_switch_vlan":  {Tok: makeDataSource(mainMod, "openwrt_network_switch_vlan")},
+			"openwrt_system_system":        {Tok: makeDataSource(mainMod, "openwrt_system_system")},
+			"openwrt_wireless_wifi_device": {Tok: makeDataSource(mainMod, "openwrt_wireless_wifi_device")},
+			"openwrt_wireless_wifi_iface":  {Tok: makeDataSource(mainMod, "openwrt_wireless_wifi_iface")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@deposition-cloud/openwrt",
+			PackageName: "@deposition-cloud/pulumi-openwrt",
 
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
