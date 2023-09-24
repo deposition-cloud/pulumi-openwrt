@@ -40,6 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
@@ -160,13 +161,13 @@ jobs:
       fail-fast: true
       matrix:
         dotnetversion:
-          - 6.0.x
+          - 7.0.x
         goversion:
           - 1.20.x
         nodeversion:
-          - 16.x
+          - 20.6.x
         pythonversion:
-          - "3.9"
+          - "3.10"
         # javaversion:
         # - "11"
         language:
