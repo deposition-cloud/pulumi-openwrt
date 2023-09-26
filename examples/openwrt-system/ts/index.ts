@@ -15,6 +15,15 @@ const system = openwrt.getSystemSystem({
   provider: openWrtProvider
 } )
 
+const ip = new openwrt.DhcpHost('testing', {
+  ip: '192.168.1.201',
+  mac: '12:23:34:45:56:67',
+  name: 'pulumi-openwrt-host'
+}, {
+  id: "blah2",
+  provider: openWrtProvider
+})
+
 export const out = {
   system
 }
